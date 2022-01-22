@@ -1,0 +1,28 @@
+<%- include('partials/header') %>
+
+<div class="jumbotron text-center">
+  <div class="container">
+    <h1 class="display-3">Admin Dashboard</h1>
+    
+    <hr>
+
+    
+    <a class="btn btn-light btn-lg" href="/logout" role="button">Log Out</a>
+
+    <% usersWithLeave.forEach(function(user){ %>
+      <div class="leave-request">
+        <p><%=user.firstName%></p>
+        
+          <form action="/adminDashboard" method="POST">
+            <button name="id" value="<%=user._id%>" type="submit" class="btn btn-dark btn-lg">Approve Leave</button>
+          </form>
+        
+        
+      </div>
+      
+    <% }) %>
+    
+  </div>
+</div>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,24 @@
+<%- include('partials/header') %>
+
+<div class="jumbotron text-center">
+  <div class="container">
+    <h1 class="display-3">Employee Dashboard</h1>
+
+    
+
+
+    <hr>
+    <a class="btn btn-light btn-lg" href="/logout" role="button">Log Out</a>
+    
+
+            <form action="/employeeDashboard" method="POST">
+                <button type="submit" class="btn btn-dark btn-lg">Request for leave</button>
+            </form>
+        
+    
+    
+
+  </div>
+</div>
+
+<%- include('partials/footer') %>
