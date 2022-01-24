@@ -27,7 +27,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect("mongodb://localhost:27017/userDB", {useNewUrlParser: true});
+mongoose.connect("mongodb+srv://admin-gaurav:admin@cluster1.xwxra.mongodb.net/userDB", {useNewUrlParser: true});
 
 
 const userSchema = new mongoose.Schema ({
