@@ -147,6 +147,7 @@ app.get("/adminDashboard", function(req, res){
         console.log(err);
       } else {
         if (foundUsers) {
+
           res.render("adminDashboard", {usersWithLeave: foundUsers});
         }
       }
