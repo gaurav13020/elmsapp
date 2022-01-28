@@ -27,7 +27,9 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect("mongodb://localhost:27017/userDB", {useNewUrlParser: true});
+const atlas_url = process.env.URL;
+
+mongoose.connect(atlas_url, {useNewUrlParser: true});
 
 
 const userSchema = new mongoose.Schema ({
@@ -38,10 +40,9 @@ const userSchema = new mongoose.Schema ({
   email: String,
   password: String,
   secret: String,
-  leave: {
-    type: Boolean,
-    default: false
-} 
+  leave: {startDate: Date,
+          endDate: Date},
+  remark: String 
 });
 
 userSchema.plugin(passportLocalMongoose);
@@ -79,21 +80,74 @@ app.get("/register", function(req, res){
 
 app.get("/employeeDashboard", function(req, res){
   if (req.isAuthenticated()){
-    res.render("employeeDashboard");
+    res.render("employeeDashboard", {user : req.user});
   } else {
     res.redirect("/login");
   }
   
 });
 
+
+
+app.post("/employeeDashboard", function(req, res){
+  console.log(req.body.start);
+  console.log(req.body.end);
+  User.findById(req.user.id, function(err, foundUser){
+    
+    if (err) {
+      console.log(err);
+    } else {
+      if (foundUser) {
+
+        foundUser.leave.startDate = req.body.start;
+        foundUser.leave.endDate = req.body.end;
+        foundUser.save(function(){
+          res.redirect("/employeeDashboard");
+        });
+
+        // foundUser.leave = true;
+        // foundUser.save(function(){
+        //   res.redirect("/employeeDashboard");
+        // });
+      }
+    }
+  });
+});
+
+app.post("/employeeDashboard/delete-message", function(req, res){
+  User.findById(req.user.id, function(err, foundUser){
+    
+    if (err) {
+      console.log(err);
+    } else {
+      if (foundUser) {
+
+        foundUser.remark = null;
+        foundUser.save(function(){
+          res.redirect("/employeeDashboard");
+        });
+
+        // foundUser.leave = true;
+        // foundUser.save(function(){
+        //   res.redirect("/employeeDashboard");
+        // });
+      }
+    }
+  });
+});
+
+
+
+
+
 app.get("/adminDashboard", function(req, res){
   if (req.isAuthenticated()){
-    User.find({"leave": true}, function(err, foundUsers){
+    User.find({"leave": {$ne: null}}, function(err, foundUsers){
       if (err){
         console.log(err);
       } else {
         if (foundUsers) {
-         
+
           res.render("adminDashboard", {usersWithLeave: foundUsers});
         }
       }
@@ -102,6 +156,43 @@ app.get("/adminDashboard", function(req, res){
     res.redirect("/login");
   }
 });
+
+
+app.post("/adminDashboard/accept", function(req, res){
+  User.findById(req.body.id, function(err, foundUser){
+    if (err) {
+      console.log(err);
+    } else {
+      if (foundUser) {
+        foundUser.leave = null;
+        foundUser.remark = "Your leave has been accepted.";
+        foundUser.save(function(){
+          res.redirect("/adminDashboard");
+        });
+      }
+    }
+  });
+});
+
+app.post("/adminDashboard/reject", function(req, res){
+  User.findById(req.body.id, function(err, foundUser){
+    console.log(foundUser)
+    if (err) {
+      console.log(err);
+    } else {
+      if (foundUser) {
+        foundUser.leave = null;
+        foundUser.remark = "Your leave has been rejected.";
+        foundUser.save(function(){
+          res.redirect("/adminDashboard");
+        });
+      }
+    }
+  });
+});
+
+
+
 
 app.get("/dashboard", function(req, res){
   if (req.isAuthenticated()) {
@@ -210,39 +301,6 @@ app.post("/submit", function(req, res){
         foundUser.secret = submittedSecret;
         foundUser.save(function(){
           res.redirect("/secrets");
-        });
-      }
-    }
-  });
-});
-
-app.post("/employeeDashboard", function(req, res){
-  User.findById(req.user.id, function(err, foundUser){
-    
-    if (err) {
-      console.log(err);
-    } else {
-      if (foundUser) {
-        foundUser.leave = true;
-        foundUser.save(function(){
-          res.redirect("/employeeDashboard");
-        });
-      }
-    }
-  });
-});
-
-
-app.post("/adminDashboard", function(req, res){
-  User.findById(req.body.id, function(err, foundUser){
-    
-    if (err) {
-      console.log(err);
-    } else {
-      if (foundUser) {
-        foundUser.leave = false;
-        foundUser.save(function(){
-          res.redirect("/adminDashboard");
         });
       }
     }

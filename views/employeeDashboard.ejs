@@ -1,6 +1,7 @@
 <%- include('partials/header') %>
 
-<div class="jumbotron text-center">
+
+<!-- <div class="jumbotron text-center">
   <div class="container">
     <h1 class="display-3">Employee Dashboard</h1>
 
@@ -13,12 +14,79 @@
 
             <form action="/employeeDashboard" method="POST">
                 <button type="submit" class="btn btn-dark btn-lg">Request for leave</button>
-            </form>
+            </form> -->
         
+
+
+
+            <nav class="navbar navbar-light bg-light justify-content-between">
+              <a class="navbar-brand">Pratyin Infotech Pvt.Ltd.</a>
+              <form class="form-inline">
+          
+                <a class="btn btn-dark btn-lg" href="/logout" role="button">Log Out</a>
+              </form>
+            </nav>
+          
+            <div class="row">
+          
+          
+              <div class=" left col-lg-8 col-md-8">
+
+                <div class="top">
+                  <div class="thumb-lg member-thumb mx-auto photo"><i class="fas fa-user-circle fa-10x"></i></div>
+                  <h2 class="name"> <%- user.firstName %> <%- user.lastName %></h2>
+                </div>
+          
+                <form action="/employeeDashboard" method="POST">
+                  <div class="middle">
+                    <label for="start">Start date:</label>
+                    <input class="form-control  date" type="date" id="start" name="start" value="2022-01-01"">
+                    <label for="end">End date:</label>
+                    <input class="form-control  date" type="date" id="end" name="end" value="2022-01-01">
+                  </div>
+            
+            
+                  <div class="bottom">
+                    <button class="btn btn-primary" type="submit">Apply</button>
+                  </div>
+                </form>
+                
+          
+          
+              </div>
+          
+          
+          
+              <div class="right col-lg-4 col-md-4">
+
+
+
+                <% if(user.remark !=null){ %>
+                  <div class="alert alert-secondary" role="alert">
+                    <%=user.remark%>
+                    <br>
+                    <form action="/employeeDashboard/delete-message" method="POST">
+                      <button class="btn btn-primary" type="submit">Done</button>
+                    </form>
+                    
+                  </div>
+                <% } else{ %>  
+                  <h1>No new messages.</h1>
+               <% } %>
+
+
+               
+                
+                
+
+              </div>
+          
+          
+            </div>
     
     
 
-  </div>
-</div>
+  <!-- </div>
+</div> -->
 
 <%- include('partials/footer') %>

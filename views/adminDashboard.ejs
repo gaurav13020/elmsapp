@@ -1,6 +1,6 @@
 <%- include('partials/header') %>
 
-<div class="jumbotron text-center">
+<!-- <div class="jumbotron text-center">
   <div class="container">
     <h1 class="display-3">Admin Dashboard</h1>
     
@@ -11,7 +11,7 @@
 
     <% usersWithLeave.forEach(function(user){ %>
       <div class="leave-request">
-        <p><%=user.firstName%></p>
+        <p><%=user.firstName%> <%=((user.leave.endDate-user.leave.startDate)/86400000) + 1%></p>
         
           <form action="/adminDashboard" method="POST">
             <button name="id" value="<%=user._id%>" type="submit" class="btn btn-dark btn-lg">Approve Leave</button>
@@ -23,6 +23,45 @@
     <% }) %>
     
   </div>
+</div> -->
+
+<div>
+  <nav class="navbar navbar-light bg-light justify-content-between">
+    <a class="navbar-brand">Pratyin Infotech Pvt.Ltd.</a>
+    <form class="form-inline">
+
+      <a class="btn btn-dark btn-lg" href="/logout" role="button">Log Out</a>
+    </form>
+  </nav>
+
+  <% usersWithLeave.forEach(function(user){ %>
+
+    <div class="alert alert-info alert-card" role="alert">
+
+      <h3 class="Heading"><%=user.firstName%></h3>
+      <h3 class="Heading"><%=user.lastName%></h3>
+      <br>
+      <br>
+      <h4 class="Headingdate">From: <%=user.leave.startDate%></h4>
+      <br>
+      <h4 class="Headingdate">To: <%=user.leave.endDate%></h4>
+      <br>
+      <br>
+      <h4 class="Headingdate">Days: <%=((user.leave.endDate-user.leave.startDate)/86400000) + 1%></h4>
+      <br>
+      <br>
+      <form action="/adminDashboard/accept" method="POST">
+        <button name="id" value="<%=user._id%>" type="submit" class="btn btn-dark btn-lg">Approve Leave</button>
+      </form>
+      <br>
+      <form action="/adminDashboard/reject" method="POST">
+        <button name="id" value="<%=user._id%>" type="submit" class="btn btn-dark btn-lg">Reject Leave</button>
+      </form>
+
+  </div>
+  <% }) %>
+
+
 </div>
 
 <%- include('partials/footer') %>
