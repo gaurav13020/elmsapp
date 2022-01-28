@@ -1,6 +1,7 @@
 
 body {
   background-color: #E8ECEF;
+  z-index: -1;
 }
 
 .centered {
@@ -23,4 +24,42 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+}
+
+.left{
+  /* margin-left: ; */
+  background-color: #E8ECEF;
+}
+.photo{
+      display: contents;
+}
+
+.name{
+  position: relative;
+  display: inline;
+}
+
+.bottom{
+  padding-top: 3rem;
+}
+
+.right{
+  background-color:#D0D0D0;
+}
+
+
+.Heading{
+  display: inline;
+}
+
+.alert-card{
+  margin: 3rem;
+}
+
+.start-label{
+  margin-top: auto;
+}
+
+.Headingdate{
+  display: inline;
 }
