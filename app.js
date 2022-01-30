@@ -40,6 +40,7 @@ const userSchema = new mongoose.Schema ({
   email: String,
   password: String,
   secret: String,
+  leavesRemaining: String,
   leave: {startDate: Date,
           endDate: Date},
   remark: String 
@@ -164,6 +165,10 @@ app.post("/adminDashboard/accept", function(req, res){
       console.log(err);
     } else {
       if (foundUser) {
+        const a = foundUser.leave.startDate;
+        const b = foundUser.leave.endDate;
+        const c = ((b-a)/86400000) + 1;
+        foundUser.leavesRemaining = foundUser.leavesRemaining - c;
         foundUser.leave = null;
         foundUser.remark = "Your leave has been accepted.";
         foundUser.save(function(){
@@ -221,7 +226,8 @@ app.post("/register", function(req, res){
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     role: req.body.role,
-    status: req.body.status
+    status: req.body.status,
+    leavesRemaining: 30
   },
      req.body.password, function(err, user){
     if (err) {
