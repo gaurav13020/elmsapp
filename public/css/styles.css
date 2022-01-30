@@ -27,7 +27,6 @@ body {
 }
 
 .left{
-  /* margin-left: ; */
   background-color: #E8ECEF;
 }
 .photo{
@@ -39,8 +38,21 @@ body {
   display: inline;
 }
 
+.date {
+  width: 11rem;
+}
+
+.top{
+  margin-left: 1rem;
+}
+
+.middle{
+  margin-left: 1rem;
+}
+
 .bottom{
   padding-top: 3rem;
+  margin-left: 1rem;
 }
 
 .right{
@@ -62,4 +74,23 @@ body {
 
 .Headingdate{
   display: inline;
+}
+
+.leave-counter{
+  margin-top: 1.50rem;
+  background-color: #7C99AC;
+  width: 50%;
+  border-radius: 1.875rem;
+  padding: 0.125rem;
+  display: grid;
+  align-content: stretch;
+  justify-content: space-evenly;
+  justify-items: center;
+
+}
+
+
+.count-text{
+  font-weight: 500;
+  font-size: 1.4rem;
 }

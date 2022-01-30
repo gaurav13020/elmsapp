@@ -32,11 +32,24 @@
           
               <div class=" left col-lg-8 col-md-8">
 
-                <div class="top">
-                  <div class="thumb-lg member-thumb mx-auto photo"><i class="fas fa-user-circle fa-10x"></i></div>
-                  <h2 class="name"> <%- user.firstName %> <%- user.lastName %></h2>
-                </div>
+                <div class="top row">
+
+                  <div class="top-left col-lg-7">
+                    <div class="thumb-lg member-thumb mx-auto photo"><i class="fas fa-user-circle fa-10x"></i></div>
+                    <h2 class="name"> <%- user.firstName %> <%- user.lastName %></h2>
+                  </div>
+
+                  <div class="top-rigth col-lg-4 leave ">
+                    <div class="counter leave-counter ">
+                      <i class="fas fa-calendar-times fa-3x"></i>
+                      <h2 class="timer count-title count-number"><%- user.leavesRemaining %></h2>
+                      <p class="count-text ">Leaves Remaining</p>
+                    </div>
           
+                  </div>
+                  
+                </div>
+                <hr>
                 <form action="/employeeDashboard" method="POST">
                   <div class="middle">
                     <label for="start">Start date:</label>
