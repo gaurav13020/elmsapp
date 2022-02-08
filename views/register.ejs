@@ -1,81 +1,115 @@
 <%- include('partials/header') %>
-<div class="container mt-5">
-  <h1>Register</h1>
+
+
+<div>
+  <nav class="navbar navbar-light bg-light justify-content-between">
+    <a class="navbar-brand">Pratyin Infotech Pvt.Ltd.</a>
+    <form class="form-inline">
+
+      <a class="btn btn-dark btn-lg" href="/logout" role="button">Log Out</a>
+    </form>
+  </nav>
 
   <div class="row">
-    <div class="col-sm-8">
-      <div class="card">
-        <div class="card-body">
 
-          <!-- Makes POST request to /register route -->
-          <form action="/register" method="POST">
+    <div class="sidebar col-lg-2 col-md-3 col-sm-3">
 
-
-            <div class="form-group">
-              <label for="email">First Name</label>
-              <input type="text" class="form-control" name="firstName">
-            </div>
-
-
-            <div class="form-group">
-              <label for="email">Last Name</label>
-              <input type="text" class="form-control" name="lastName">
-            </div>
-
-
-            <div class="form-group">
-              <label for="role">Role</label>
-              <select name="role" class="custom-select" id="inputGroupSelect01">
-                <option selected>Choose...</option>
-                <option value="admin">Admin</option>
-                <option value="employee">Employee</option>
-              </select>
-            </div>
-
-
-            <div class="form-group">
-              <label for="email">Status</label>
-              <select name="status" class="custom-select" id="inputGroupSelect01">
-                <option selected>Choose...</option>
-                <option value="permanant">Permanant</option>
-                <option value="probation">On Probation</option>
-                <option value="intern">Intern</option>
-              </select>
-            </div>
-
-
-            <div class="form-group">
-              <label for="email">Email</label>
-              <input type="email" class="form-control" name="username">
-            </div>
-
-
-            <div class="form-group">
-              <label for="password">Password</label>
-              <input type="password" class="form-control" name="password">
-            </div>
-
-
-            <button type="submit" class="btn btn-dark">Register</button>
-          </form>
-          <p>Already have an account? <a href="/login">LOG IN</a></p>
-
-        </div>
+      <div class="buttons">
+        <a href="/adminDashboard" class="anchor">Dashboard</a>
       </div>
+
+      <div class="buttons">
+        <a href="/register" class="anchor">Register an employee</a>
+      </div>
+
+
+      <div class="buttons">
+        <a href="/pendingRequest" class="anchor">Pending requests</a>
+      </div>
+
+
     </div>
 
-    <!-- <div class="col-sm-4">
-      <div class="card social-block">
-        <div class="card-body">
-          <a class="btn btn-block" href="/auth/google" role="button">
-            <i class="fab fa-google"></i>
-            Sign Up with Google
-          </a>
+    <div class="mainsection col-lg-9 col-md-8 col-sm-8">
+      
+      
+      <div class="container mt-5">
+        <h1>Register</h1>
+      
+        <div class="row">
+          <div class="col-sm-8">
+            <div class="card">
+              <div class="card-body">
+      
+                <!-- Makes POST request to /register route -->
+                <form action="/register" method="POST">
+      
+      
+                  <div class="form-group">
+                    <label for="email">First Name</label>
+                    <input type="text" class="form-control" name="firstName">
+                  </div>
+      
+      
+                  <div class="form-group">
+                    <label for="email">Last Name</label>
+                    <input type="text" class="form-control" name="lastName">
+                  </div>
+      
+      
+                  <div class="form-group">
+                    <label for="role">Role</label>
+                    <select name="role" class="custom-select" id="inputGroupSelect01">
+                      <option selected>Choose...</option>
+                      <option value="admin">Admin</option>
+                      <option value="employee">Employee</option>
+                    </select>
+                  </div>
+      
+      
+                  <div class="form-group">
+                    <label for="email">Status</label>
+                    <select name="status" class="custom-select" id="inputGroupSelect01">
+                      <option selected>Choose...</option>
+                      <option value="permanant">Permanant</option>
+                      <option value="probation">On Probation</option>
+                      <option value="intern">Intern</option>
+                    </select>
+                  </div>
+      
+      
+                  <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" name="username">
+                  </div>
+      
+      
+                  <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" name="password">
+                  </div>
+      
+      
+                  <button type="submit" class="btn btn-dark">Register</button>
+                </form>
+                
+      
+              </div>
+            </div>
+          </div>
+      
+         
         </div>
       </div>
-    </div> -->
+
+    </div>
 
   </div>
+
+
 </div>
 
-<%- include('partials/header') %>
+
+
+
+<%- include('partials/footer') %>
