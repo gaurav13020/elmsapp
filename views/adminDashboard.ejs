@@ -1,29 +1,6 @@
 <%- include('partials/header') %>
 
-<!-- <div class="jumbotron text-center">
-  <div class="container">
-    <h1 class="display-3">Admin Dashboard</h1>
-    
-    <hr>
 
-    
-    <a class="btn btn-light btn-lg" href="/logout" role="button">Log Out</a>
-
-    <% usersWithLeave.forEach(function(user){ %>
-      <div class="leave-request">
-        <p><%=user.firstName%> <%=((user.leave.endDate-user.leave.startDate)/86400000) + 1%></p>
-        
-          <form action="/adminDashboard" method="POST">
-            <button name="id" value="<%=user._id%>" type="submit" class="btn btn-dark btn-lg">Approve Leave</button>
-          </form>
-        
-        
-      </div>
-      
-    <% }) %>
-    
-  </div>
-</div> -->
 
 <div>
   <nav class="navbar navbar-light bg-light justify-content-between">
@@ -34,32 +11,55 @@
     </form>
   </nav>
 
-  <% usersWithLeave.forEach(function(user){ %>
+  <div class="row">
 
-    <div class="alert alert-info alert-card" role="alert">
+    <div class="sidebar col-lg-2 col-md-3 col-sm-3">
 
-      <h3 class="Heading"><%=user.firstName%></h3>
-      <h3 class="Heading"><%=user.lastName%></h3>
-      <br>
-      <br>
-      <h4 class="Headingdate">From: <%=user.leave.startDate%></h4>
-      <br>
-      <h4 class="Headingdate">To: <%=user.leave.endDate%></h4>
-      <br>
-      <br>
-      <h4 class="Headingdate">Days: <%=((user.leave.endDate-user.leave.startDate)/86400000) + 1%></h4>
-      <br>
-      <br>
-      <form action="/adminDashboard/accept" method="POST">
-        <button name="id" value="<%=user._id%>" type="submit" class="btn btn-dark btn-lg">Approve Leave</button>
-      </form>
-      <br>
-      <form action="/adminDashboard/reject" method="POST">
-        <button name="id" value="<%=user._id%>" type="submit" class="btn btn-dark btn-lg">Reject Leave</button>
-      </form>
+      <div class="buttons">
+        <a href="/adminDashboard" class="anchor">Dashboard</a>
+      </div>
+
+      <div class="buttons">
+        <a href="/register" class="anchor">Register an employee</a>
+      </div>
+
+
+      <div class="buttons">
+        <a href="/pendingRequest" class="anchor">Pending requests</a>
+      </div>
+
+
+    </div>
+
+    <div class="mainsection col-lg-9 col-md-8 col-sm-8">
+      <table class="table">
+        <thead>
+          <tr>
+            <th style="width: 80px;" scope="col">First</th>
+            <th style="width: 80px;" scope="col">Last</th>
+            <th style="width: 80px;" scope="col">Status</th>
+            <th style="width: 80px;" scope="col">Leaves Remaining</th>
+            <th style="width: 80px;" scope="col">Logs</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% employees.forEach(function(user){ %>
+          <tr>
+            <td><%=user.firstName%></td>
+            <td><%=user.lastName%></td>
+            <td><%=user.status%></td>
+            <td style="padding-left: 4rem;"><%=user.leavesRemaining%></td>
+            <td><a href="/adminDashboard/logs/<%=user._id%>"><button class="btn btn-primary">View</button></a></td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+        
+    </div>
 
   </div>
-  <% }) %>
+
+  
 
 
 </div>

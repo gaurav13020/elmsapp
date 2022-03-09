@@ -1,0 +1,89 @@
+<%- include('partials/header') %>
+
+
+
+<div>
+  <nav class="navbar navbar-light bg-light justify-content-between">
+    <a class="navbar-brand">Pratyin Infotech Pvt.Ltd.</a>
+    <form class="form-inline">
+
+      <a class="btn btn-dark btn-lg" href="/logout" role="button">Log Out</a>
+    </form>
+  </nav>
+
+  <div class="row">
+
+    <div class="sidebar col-lg-2 col-md-3 col-sm-3">
+
+      <div class="buttons">
+        <a href="/adminDashboard" class="anchor">Dashboard</a>
+      </div>
+
+      <div class="buttons">
+        <a href="/register" class="anchor">Register an employee</a>
+      </div>
+
+
+      <div class="buttons">
+        <a href="/pendingRequest" class="anchor">Pending requests</a>
+      </div>
+
+
+    </div>
+
+    <div class="mainsection col-lg-9 col-md-8 col-sm-8">
+        <% usersWithLeave.forEach(function(user){ %>
+            <%user.leave.forEach(function(request){%>
+              <%if (request.status == "pending") {%>
+                
+                <div class="alert alert-info alert-card" role="alert">
+        
+                  <h3 class="Heading"><%=user.firstName%></h3>
+                  <h3 class="Heading"><%=user.lastName%></h3>
+                  <br>
+                  <br>
+                  <h4 class="Headingdate">From: <%=request.startDate%></h4>
+                  <br>
+                  <h4 class="Headingdate">To: <%=request.endDate%></h4>
+                  <br>
+                  <br>
+                  <h4 class="Headingdate">Days: <%=((request.endDate-request.startDate)/86400000) + 1%></h4>
+                  <br>
+                  <br>
+                  <h4 class="Headingdate">Type: <%=request.type%></h4>
+                  <br>
+                  <br>
+                  <h4 class="Headingdate">Reason: <%=request.reason%></h4>
+                  <br>
+                  <br>
+                  
+                  <form action="/pendingRequest/accept/<%=user._id%>" method="POST">
+                    <div class="form-group">
+                      <label>Comment</label>
+                      <input  class="form-control" id="comment" name="comment" value="Your leave request has been accepted.">
+                    </div>
+                    <button name="docId" value="<%=request._id%>" type="submit" class="btn btn-dark btn-lg">Approve Leave</button>
+                  </form>
+                  <br>
+                  <form  action="/pendingRequest/reject/<%=user._id%>" method="POST">
+                    <button name="docId" value="<%=request._id%>" type="submit" class="btn btn-dark btn-lg">Reject Leave</button>
+                  </form>
+            
+              </div>
+
+
+              <%}%>
+            <%})%>
+            
+          <% }) %>
+          
+    </div>
+
+  </div>
+
+  
+
+
+</div>
+
+<%- include('partials/footer') %>

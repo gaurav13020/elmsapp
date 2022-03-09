@@ -22,7 +22,7 @@
             <nav class="navbar navbar-light bg-light justify-content-between">
               <a class="navbar-brand">Pratyin Infotech Pvt.Ltd.</a>
               <form class="form-inline">
-          
+                <a class="btn btn-primary btn-lg" style="margin-right: 2rem" href="#logs" role="button">View Logs</a>
                 <a class="btn btn-dark btn-lg" href="/logout" role="button">Log Out</a>
               </form>
             </nav>
@@ -36,13 +36,13 @@
 
                   <div class="top-left col-lg-7">
                     <div class="thumb-lg member-thumb mx-auto photo"><i class="fas fa-user-circle fa-10x"></i></div>
-                    <h2 class="name"> <%- user.firstName %> <%- user.lastName %></h2>
+                    <h2 class="name"> <%= user.firstName %> <%- user.lastName %></h2>
                   </div>
 
                   <div class="top-rigth col-lg-4 leave ">
                     <div class="counter leave-counter ">
                       <i class="fas fa-calendar-times fa-3x"></i>
-                      <h2 class="timer count-title count-number"><%- user.leavesRemaining %></h2>
+                      <h2 class="timer count-title count-number"><%= user.leavesRemaining %></h2>
                       <p class="count-text ">Leaves Remaining</p>
                     </div>
           
@@ -52,10 +52,25 @@
                 <hr>
                 <form action="/employeeDashboard" method="POST">
                   <div class="middle">
-                    <label for="start">Start date:</label>
+                    <label for="start"><h4>Start date:</h4></label>
                     <input class="form-control  date" type="date" id="start" name="start" value="2022-01-01"">
-                    <label for="end">End date:</label>
+                    <label for="end"><h4>End date:</h4></label>
                     <input class="form-control  date" type="date" id="end" name="end" value="2022-01-01">
+
+                    <div class="form-group">
+                      <label for="email"><h4>Leave Type:</h4></label>
+                      <br>
+                      <select name="leaveType" class="custom-select date" id="inputGroupSelect01">
+                        <option selected>Choose...</option>
+                        <option value="Holiday">Holiday</option>
+                        <option value="Medical">Medical Leave</option>
+                        <option value="Casual">Casual Leave</option>
+                        <option value="Maternity">Maternity Leave</option>
+                      </select>
+                    </div>
+                    <h4>Enter your reason below.</h4>
+                    <textarea name="reason" cols="50" rows="5"></textarea>
+
                   </div>
             
             
@@ -63,6 +78,10 @@
                     <button class="btn btn-primary" type="submit">Apply</button>
                   </div>
                 </form>
+
+
+
+
                 
           
           
@@ -73,19 +92,20 @@
               <div class="right col-lg-4 col-md-4">
 
 
-
-                <% if(user.remark !=null){ %>
-                  <div class="alert alert-secondary" role="alert">
-                    <%=user.remark%>
-                    <br>
-                    <form action="/employeeDashboard/delete-message" method="POST">
-                      <button class="btn btn-primary" type="submit">Done</button>
-                    </form>
+                <h4>Message box.</h4>
+                <% user.leave.forEach(function(leaves){ %>
+                  <% if(leaves.status !== "pending" && leaves.adminRemark !== ""){ %>
+                    <div class="alert alert-secondary" role="alert">
+                      <%=leaves.adminRemark%>
+                      <br>
+                      <form action="/employeeDashboard/delete-message" method="POST">
+                        <button name="id" value="<%=leaves._id%>" class="btn btn-primary" type="submit">Done</button>
+                      </form>
+                      
+                    </div>
                     
-                  </div>
-                <% } else{ %>  
-                  <h3 class="message">No new messages.</h3>
-               <% } %>
+                  <% } %>
+                <%  }) %>
 
 
                
@@ -96,10 +116,38 @@
           
           
             </div>
-    
-    
 
-  <!-- </div>
-</div> -->
+            <div class="logs" id="logs">
+              <h1>Logs</h1>
+              <div class="mainsection col-lg-9 col-md-8 col-sm-8">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Days</th>
+                      <th scope="col">Start Date</th>
+                      <th scope="col">End Date</th>
+                      <th scope="col">Type</th>
+                      <th scope="col">Reason</th>
+                      <th scope="col">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% user.leave.forEach(function(user){ %>
+                    <tr>
+                      <td><%=((user.endDate - user.startDate)/86400000+1)%></td>
+                      <td><%=user.startDate%></td>
+                      <td><%=user.endDate%></td>
+                      <td><%=user.type%></td>
+                      <td><%=user.reason%></td>
+                      <td><%=user.status%></td>
+                    </tr>
+                    <% }) %>
+                  </tbody>
+                </table>
+                  
+              </div>
+            </div>
+    
+    
 
 <%- include('partials/footer') %>
