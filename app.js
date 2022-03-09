@@ -224,7 +224,7 @@ app.get("/adminDashboard", authPage("admin"),  function(req, res){
         console.log(err);
       } else {
         if (foundUsers) {
-          res.render("adminDashboard", {employees: foundUsers});
+             res.render("adminDashboard", {employees: foundUsers});
         }
       }
     });

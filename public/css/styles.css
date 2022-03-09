@@ -34,6 +34,11 @@ body {
       display: contents;
 }
 
+.message{
+  text-align: center;
+  margin-top: 2rem;
+}
+
 .name{
   position: relative;
   display: inline;
